@@ -84,3 +84,16 @@ fn test_m_d_yyyy_h_m_s_tt() {
         .to_rfc3339()
         .starts_with("2023-08-07T08:23:50+02:00"));
 }
+
+#[test]
+fn test_mt_d_h_m_s_ms() {
+    let date = "Dec 27 18:57:47.234"; //.746";
+    let test = date.parse::<DateTimeFixedOffset>();
+    assert!(test.is_ok());
+    let test = test.unwrap();
+    eprintln!("{}", test.0.to_rfc3339());
+    assert!(test
+        .0
+        .to_rfc3339()
+        .starts_with("2023-12-27T18:57:47.234+01:00"));
+}
