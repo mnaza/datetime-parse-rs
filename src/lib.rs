@@ -62,14 +62,18 @@ fn parse_from(date_time: &str) -> Result<DateTime<FixedOffset>, Error> {
 }
 
 fn from_unix_timestamp(s: &str) -> Result<DateTime<FixedOffset>, Error> {
-    let tts = s.parse::<i64>().map_err(|e| e.to_string())?;
-    let dt = if s.len() <= 10 {
+    let tts = if let Ok(s) = s.parse::<i64>().map_err(|e| e.to_string()) {
+        s
+    } else {
+        s.parse::<f64>().map_err(|e| e.to_string())? as i64
+    };
+    let dt = if tts <= 9999999999 {
         //timestamp in seconds
         chrono::naive::NaiveDateTime::from_timestamp_opt(tts, 0)
-    } else if s.len() <= 13 {
+    } else if tts <= 9999999999999 {
         //timestamp in milliseconds
         chrono::naive::NaiveDateTime::from_timestamp_opt(tts / 1000, (tts % 1000) as u32 * 1000000)
-    } else if s.len() <= 16 {
+    } else if tts <= 9999999999999999 {
         //timestamp in microseconds
         chrono::naive::NaiveDateTime::from_timestamp_opt(
             tts / 1000000,
