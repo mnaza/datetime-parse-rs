@@ -147,6 +147,7 @@ fn from_datetime_without_tz(s: &str) -> Result<DateTime<FixedOffset>, Error> {
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%d %m %Y %I:%M:%S%P"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%d %m %Y %I:%M:%S %P"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%-m-%-d-%Y %-H:%-M:%-S %p"))
+        .or_else(|_| NaiveDateTime::parse_from_str(s, "%d %b %Y %H:%M:%S"))
         .map(|x| Local.from_local_datetime(&x))
         .map_err(|e| e.to_string())
         .map(|x| x.unwrap().with_timezone(x.unwrap().offset()))
