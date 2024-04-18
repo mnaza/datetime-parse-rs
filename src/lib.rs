@@ -122,6 +122,7 @@ fn from_datetime_without_tz(s: &str) -> Result<DateTime<FixedOffset>, Error> {
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%T.%f"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%Y-%m-%d %T"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%Y-%m-%d %T.%f"))
+        .or_else(|_| NaiveDateTime::parse_from_str(s, "%Y %b %d %T"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%B %d %Y %T"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%B %d %Y %T.%f"))
         .or_else(|_| NaiveDateTime::parse_from_str(s, "%B %d, %Y %T"))
