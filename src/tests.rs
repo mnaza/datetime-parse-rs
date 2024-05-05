@@ -120,7 +120,7 @@ fn test_yyyy_m_d_h_m_s() {
 
 #[test]
 fn test_m_d_yyyy_h_m_s_tz() {
-    let date = "05/02/2024:10:02:16";
+    let date = "05/02/2024:10:02:16 GMT";
     let test = date.parse::<DateTimeFixedOffset>();
     assert!(test.is_ok());
     let test = test.unwrap();
