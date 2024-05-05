@@ -117,3 +117,13 @@ fn test_yyyy_m_d_h_m_s() {
     eprintln!("{}", test.0.to_rfc3339());
     assert!(test.0.to_rfc3339().starts_with("2024-03-29T18:01:18+01:00"));
 }
+
+#[test]
+fn test_m_d_yyyy_h_m_s_tz() {
+    let date = "05/02/2024:10:02:16";
+    let test = date.parse::<DateTimeFixedOffset>();
+    assert!(test.is_ok());
+    let test = test.unwrap();
+    eprintln!("{}", test.0.to_rfc3339());
+    assert!(test.0.to_rfc3339().starts_with("2024-05-02T10:02:16+02:00"));
+}
